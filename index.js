@@ -1,8 +1,8 @@
 const express = require("express");
-var app = express();
+const app = express();
 const mongoose = require("mongoose");
-const blogRoute = require('./routes/blogRoute');
-const Blog = require('./models/blogModel')
+const articleRouter = require('./routes/articles');
+const Article = require('./models/blogModel')
 const port = process.env.PORT || 3000;
 require("dotenv").config();
 
@@ -13,25 +13,25 @@ mongoose
   })
   .catch((error) => console.log(error));
 
-app.set('view engine','ejs')
-  app.get("/", async(req, res) => {
-    const articles = [{
-      title:"test1",
-      createdAt: new Date(),
-      description:"description"
-    },
-    {
-      title:"test2",
-      createdAt: new Date(),
-      description:"description"
-    },
-  ]
-  res.render("articles/index", { articles: articles });
+  app.set('view engine', 'ejs')
+  app.use(express.urlencoded({ extended: false }))
+
+app.get('/', (req, res) => {
+  const articles =[{
+    title: "This is a test blog post",
+    createdAt:new Date(),
+    description:"test description"
+  },
+  {
+    title: "This is a test blog post 2",
+    createdAt:new Date(),
+    description:"test description 2"
+  }
+]
+  res.render("articles/index",{articles:articles})  
 });
 
-app.use(express.urlencoded({ extended: true })) // middleware for handling form data
-
-app.use("/articles",blogRoute)
+app.use("/articles",articleRouter)
 
 app.listen(port, () => {
   console.log(`Server is running on ${port}`);

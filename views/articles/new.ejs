@@ -1,25 +1,11 @@
 <%- include("header")%>
 
 <div class="container">
-  <br>
-   <h1 class="mb-4">Create New Article</h1>
-   <form action="/articles" method="POST">
-    <div class="form-group">
-      <label for="title">Title</label>
-      <input required  type="text" name="title" class="form-control">
-  </div>
-  <div class="form-group">
-      <label for="description">Description</label>
-      <textarea name="description" id="description" class="form-control"></textarea>
-  </div>
-  <div class="form-group">
-      <label for="markdown">Markdown</label>
-      <textarea required name="markdown" id="markdown" class="form-control"></textarea>
-  </div>
-  <br>
-  <a href="/" class="btn btn-secondary">Cancel</a>
-  <button type="submit" class="btn btn-primary">Save</button>
-   </form>
+  <br />
+  <h1 class="mb-4">Create New Article</h1>
+  <form action="/articles" method="POST">
+    <%- include("_form_fields") %>
+  </form>
 </div>
 
 <%- include("footer")%>

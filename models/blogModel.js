@@ -1,6 +1,6 @@
 const mongoose = require( 'mongoose' );
 
-const blogSchema = mongoose.Schema({
+const articleSchema = mongoose.Schema({
     title:{
         type: String,
         required: true
@@ -16,15 +16,7 @@ const blogSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    slug:{
-        type: String,
-        required: true,
-        unique: true
-    },
-    sanitizedHTML:{
-        type: String,
-        required: true
-    }
+  
 });
 
-module.exports = mongoose.model( "Blog", blogSchema);
+module.exports = mongoose.model( "Article", articleSchema);
