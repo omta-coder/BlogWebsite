@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const articleRouter = require('./routes/articles');
 const Article = require('./models/blogModel')
+const methodOverride = require('method-override')
 const port = process.env.PORT || 3000;
 require("dotenv").config();
 
@@ -15,19 +16,10 @@ mongoose
 
   app.set('view engine', 'ejs')
   app.use(express.urlencoded({ extended: false }))
+  app.use(methodOverride('_method'))
 
-app.get('/', (req, res) => {
-  const articles =[{
-    title: "This is a test blog post",
-    createdAt:new Date(),
-    description:"test description"
-  },
-  {
-    title: "This is a test blog post 2",
-    createdAt:new Date(),
-    description:"test description 2"
-  }
-]
+app.get('/', async(req, res) => {
+  const articles =await Article.find().sort({ createdAt: 'desc' })
   res.render("articles/index",{articles:articles})  
 });
 
